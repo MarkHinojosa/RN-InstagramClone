@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import { Text, View } from 'react-native'
-import InstaClone from '../components/InstaClone';
 
-export default class Mainscreen extends Component {
+export default class IconBar extends Component {
     render() {
         return (
             <View>
-                <InstaClone/>
+                <Text> textInComponent </Text>
             </View>
         )
     }

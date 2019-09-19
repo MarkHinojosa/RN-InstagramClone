@@ -8,7 +8,7 @@ import {
   StatusBar,
 } from 'react-native';
 
-import Mainscreen from './screens/Mainscreen';
+import Mainscreen from './src/screens/Mainscreen';
 
 import {
   Header,
