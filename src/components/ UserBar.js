@@ -28,6 +28,8 @@ const styles = StyleSheet.create({
         borderRadius: 20
     },
     userBarContainer: {
+        flex:1,
+        height: 100 + '%',
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
