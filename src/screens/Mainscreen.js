@@ -2,15 +2,14 @@ import React, { Component } from 'react'
 import { Text, View } from 'react-native'
 import InstaClone from '../components/InstaClone';
 import TempNav from '../components/TempNav';
-import UserBar from '../components/ UserBar';
-import MainImage from '../components/MainImage';
-import IconBar from '../components/IconBar';
+import PostFeed from '../components/container/PostFeed';
 
 export default class Mainscreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            liked: false
+            liked: false,
+            likes: 5
         }
     }
 
@@ -28,11 +27,9 @@ export default class Mainscreen extends Component {
 
     render() {
         return (
-            <View>
+            <View style={{ height: '100%' }}>
                 <TempNav />
-                <UserBar />
-                <MainImage imageLiked={this._imageLiked} />
-                <IconBar imageLiked={this._imageLiked} liked={this.state.liked} />
+                <PostFeed />
             </View>
         )
     }
