@@ -1,32 +1,30 @@
-import React, {Fragment} from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
+import React from 'react';
+import { View, Text } from 'react-native';
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import { Login, MainFeed, Camera, Profile } from './src/screens'
+import { createBottomTabNavigator } from 'react-navigation-tabs';
 
-import Mainscreen from './src/screens/Mainscreen';
+const Tabs = createBottomTabNavigator({
+  feed: MainFeed,
+  camera: Camera,
+  profile: Profile
+})
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+const RootStack = createStackNavigator(
+  {
+    Home: Login,
+    MainFeed: Tabs,
+  },
+  {
+    initialRouteName: 'Home',
+  }
+);
 
-const App = () => {
-  return (
-    <Fragment>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <Mainscreen/>
-      </SafeAreaView>
-    </Fragment>
-  );
-};
+const AppContainer = createAppContainer(RootStack);
 
-export default App;
+export default class App extends React.Component {
+  render() {
+    return <AppContainer />;
+  }
+}
