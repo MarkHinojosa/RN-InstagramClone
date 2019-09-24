@@ -6,6 +6,16 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
 
+class HeaderComponent extends Component {
+    render() {
+        return (
+            <Text>
+                dasf
+            </Text>
+        )
+    }
+}
+
 class InstaClone extends Component {
 
     render() {
@@ -26,7 +36,7 @@ const Tabs = createBottomTabNavigator({
 const MainStack = createStackNavigator(
     {
         Login: Login,
-        main: InstaClone,
+        main: Tabs,
     },
     {
         initialRouteName: 'Login'
@@ -40,7 +50,7 @@ const AppNavigator = createStackNavigator({
 });
 
 
-export default createAppContainer(AppNavigator);
+export default createAppContainer(Tabs);
 
 
 
