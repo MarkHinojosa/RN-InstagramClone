@@ -3,6 +3,17 @@ import { Text, View } from 'react-native'
 import TempNav from '../components/TempNav';
 import PostFeed from '../components/container/PostFeed';
 
+
+class HeaderComponent extends Component {
+    render() {
+        return (
+            <Text>
+                dasf
+            </Text>
+        )
+    }
+}
+
 class MainFeed extends Component {
     constructor(props) {
         super(props);
@@ -11,6 +22,17 @@ class MainFeed extends Component {
             likes: 5
         }
     }
+
+    static navigationOptions = {
+        title: 'Home',
+        headerStyle: {
+            backgroundColor: '#f4511e',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+            fontWeight: 'bold',
+        },
+    };
 
     _imageLiked = () => {
         if (this.state.liked) {
@@ -27,7 +49,7 @@ class MainFeed extends Component {
     render() {
         return (
             <View style={{ height: '100%' }}>
-                <TempNav />
+                {/* <TempNav /> */}
                 <PostFeed />
             </View>
         )

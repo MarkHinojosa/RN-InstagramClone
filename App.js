@@ -2,22 +2,39 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import { Login, MainFeed, Camera, Profile } from './src/screens'
+import { Login, MainFeed, Camera, Profile, Register } from './src/screens';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 
+
+
 const Tabs = createBottomTabNavigator({
-  feed: MainFeed,
-  camera: Camera,
-  profile: Profile
+  Feed: MainFeed,
+  Camera: Camera,
+  Profile: Profile
 })
+
+// const IntroStack = createStackNavigator({
+//   login: Login,
+//   register: Register
+// })
 
 const RootStack = createStackNavigator(
   {
-    Home: Login,
+    Login: Login,
+    Register: Register,
     MainFeed: Tabs,
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'Login',
+    // defaultNavigationOptions: {
+    //   headerTintColor: '#fff',
+    //   headerStyle: {
+    //     backgroundColor: 'purple',
+    //   },
+    // },
+    // navigationOptions: {
+    //   title: 'Home!',
+    // },
   }
 );
 
