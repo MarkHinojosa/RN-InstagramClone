@@ -4,10 +4,13 @@
   "private": true,
   "scripts": {
     "start": "react-native start",
+    "start:dev": "nodemon server.js",
     "test": "jest",
     "lint": "eslint ."
   },
   "dependencies": {
+    "dotenv": "^8.1.0",
+    "mongoose": "^5.7.1",
     "react": "16.8.6",
     "react-native": "0.60.5",
     "react-native-gesture-handler": "^1.4.1",
@@ -24,7 +27,10 @@
     "eslint": "^6.3.0",
     "jest": "^24.9.0",
     "metro-react-native-babel-preset": "^0.56.0",
-    "react-test-renderer": "16.8.6"
+    "react-test-renderer": "16.8.6",
+    "express": "^4.16.3",
+    "mongoose": "^5.0.11",
+    "nodemon": "^1.17.2"
   },
   "jest": {
     "preset": "react-native"
