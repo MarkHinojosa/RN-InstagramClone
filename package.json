@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "start": "react-native start",
-    "start:dev": "node server",
+    "start:dev": "nodemon server.js",
     "test": "jest",
     "lint": "eslint ."
   },
   "dependencies": {
+    "dotenv": "^8.1.0",
     "mongoose": "^5.7.1",
     "react": "16.8.6",
     "react-native": "0.60.5",
