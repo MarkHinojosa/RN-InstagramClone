@@ -29,6 +29,8 @@ target 'rnInstagramClone' do
 
   pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
 
+  pod 'A0Auth0', :path => '../node_modules/react-native-auth0'
+
   target 'rnInstagramCloneTests' do
     inherit! :search_paths
     # Pods for testing
