@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, TouchableOpacity, TextInput, Button } from 'react-native'
+import { Text, View, TouchableOpacity, TextInput, Button, Alert } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient';
 // import { GoogleSignin, GoogleSigninButton } from '@react-native-community/google-signin';
 import Auth0 from "react-native-auth0";
@@ -17,12 +17,12 @@ const auth0 = new Auth0({
 export default class Login extends Component {
 
     state = {
-        hasInitialized: false
+        hasInitialized: false,
+        loggedIn: false
     }
 
 
     componentDidMount() {
-        console.log("boom panes!");
         SInfo.getItem("accessToken", {}).then(accessToken => {
             if (accessToken) {
                 auth0.auth
@@ -31,6 +31,7 @@ export default class Login extends Component {
                         this.gotoAccount(data);
                     })
                     .catch(err => {
+                        211
                         SInfo.getItem("refreshToken", {}).then(refreshToken => {
                             auth0.auth
                                 .refreshToken({ refreshToken: refreshToken })
@@ -56,7 +57,7 @@ export default class Login extends Component {
 
 
     _login = () => {
-        this.props.navigation.navigate('MainFeed')
+        // this.props.navigation.navigate('MainFeed')
     }
 
     _newUser = () => {
@@ -64,9 +65,11 @@ export default class Login extends Component {
     }
 
     gotoAccount = data => {
+        console.log(data, 'this is goToAcctount data ***')
         this.setState({
-            hasInitialized: true
-        }, () => console.log('go to account!'));
+            hasInitialized: true,
+            loggedIn: true
+        }, () => this._login())
     }
 
     login = () => {
@@ -97,6 +100,20 @@ export default class Login extends Component {
             });
     };
 
+    logout = () => {
+        auth0.webAuth
+            .clearSession({})
+            .then(success => {
+                Alert.alert(
+                    'Logged out!'
+                );
+                this.setState({ accessToken: null });
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
 
     render() {
         return (
@@ -112,6 +129,9 @@ export default class Login extends Component {
                 {this.state.hasInitialized && (
                     <Button onPress={this.login} title="Login" />
                 )}
+
+                {this.state.loggedIn ? 
+                <Button onPress={this.logout} title="Logout" /> : null }
 
 
 
