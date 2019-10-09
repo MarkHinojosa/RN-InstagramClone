@@ -3,9 +3,19 @@ import { Text, View, FlatList } from 'react-native'
 import Post from '../presentation/Post'
 
 export default class PostFeed extends Component {
+    static navigationOptions = {
+        title: 'The War-Pit',
+        headerStyle: {
+            backgroundColor: '#04396C',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+            fontWeight: 'bold',
+        },
+    };
 
-    _renderPost = ({item}) => {
-        return <Post item={item}/>
+    _renderPost = ({ item }) => {
+        return <Post item={item} />
     }
 
     _keyExtractor = (item, index) => {
