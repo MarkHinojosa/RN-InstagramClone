@@ -4,8 +4,22 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { Login, MainFeed, Camera, Profile, Register } from './src/screens';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
+class CustomNavLogout extends React.Component {
+  render() {
+    return (
+      <View>
+        <TouchableOpacity>
+          <Text>
+            Logout
+        </Text>
+        </TouchableOpacity>
+      </View>
+    )
+  }
+}
 
 const Tabs = createBottomTabNavigator({
   Feed: MainFeed,
@@ -22,21 +36,30 @@ const RootStack = createStackNavigator(
   {
     Login: Login,
     Register: Register,
-    MainScreen: Tabs,
+    MainScreen: {
+      screen: Tabs,
+      navigationOptions: () => ({
+        title: `The War-Pit!`,
+        headerBackTitle: null,
+        headerLeft: null,
+        headerRight: <CustomNavLogout/>
+      }),
+    },
+    // navigationOptions: () => ({
+    //   title: `A`,
+    //   headerBackTitle: null,
+    // }),
   },
   {
     initialRouteName: 'Login',
-    defaultNavigationOptions: {
-      title: 'The War-Pit!',
-      headerLeft: null,
-      headerTintColor: '#fff',
-      headerStyle: {
-        backgroundColor: '#04396C',
-      },
-    },
-    navigationOptions: {
-      title: 'Home!',
-    },
+    // defaultNavigationOptions: {
+    //   headerTitle: <CustomNav />,
+    //   headerBackTitle: null,
+    // },
+    // headerBackTitleVisible: false,
+    // navigationOptions: {
+    //   title: 'Home!',
+    // },
   }
 );
 
