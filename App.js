@@ -22,19 +22,21 @@ const RootStack = createStackNavigator(
   {
     Login: Login,
     Register: Register,
-    MainFeed: Tabs,
+    MainScreen: Tabs,
   },
   {
     initialRouteName: 'Login',
-    // defaultNavigationOptions: {
-    //   headerTintColor: '#fff',
-    //   headerStyle: {
-    //     backgroundColor: 'purple',
-    //   },
-    // },
-    // navigationOptions: {
-    //   title: 'Home!',
-    // },
+    defaultNavigationOptions: {
+      title: 'The War-Pit!',
+      headerLeft: null,
+      headerTintColor: '#fff',
+      headerStyle: {
+        backgroundColor: '#04396C',
+      },
+    },
+    navigationOptions: {
+      title: 'Home!',
+    },
   }
 );
 

@@ -15,6 +15,19 @@ class HeaderComponent extends Component {
 }
 
 class MainFeed extends Component {
+
+    static navigationOptions = {
+        title: 'The War-Pit',
+        headerStyle: {
+            backgroundColor: '#04396C',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+            fontWeight: 'bold',
+        },
+    };
+
+
     constructor(props) {
         super(props);
         this.state = {
@@ -23,16 +36,7 @@ class MainFeed extends Component {
         }
     }
 
-    static navigationOptions = {
-        title: 'Home',
-        headerStyle: {
-            backgroundColor: '#f4511e',
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-            fontWeight: 'bold',
-        },
-    };
+
 
     _imageLiked = () => {
         if (this.state.liked) {

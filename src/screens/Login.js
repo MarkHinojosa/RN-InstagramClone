@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { Text, View, TouchableOpacity, TextInput, Button, Alert } from 'react-native'
+import { Text, View, TouchableOpacity, TextInput, Alert, StyleSheet } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient';
-// import { GoogleSignin, GoogleSigninButton } from '@react-native-community/google-signin';
 import Auth0 from "react-native-auth0";
 import Config from "react-native-config";
 import DeviceInfo from "react-native-device-info";
@@ -15,6 +14,9 @@ const auth0 = new Auth0({
 
 
 export default class Login extends Component {
+    static navigationOptions = {
+        header: null,
+    };
 
     state = {
         hasInitialized: false,
@@ -23,41 +25,47 @@ export default class Login extends Component {
 
 
     componentDidMount() {
-        SInfo.getItem("accessToken", {}).then(accessToken => {
-            if (accessToken) {
-                auth0.auth
-                    .userInfo({ token: accessToken })
-                    .then(data => {
-                        this.gotoAccount(data);
-                    })
-                    .catch(err => {
-                        211
-                        SInfo.getItem("refreshToken", {}).then(refreshToken => {
-                            auth0.auth
-                                .refreshToken({ refreshToken: refreshToken })
-                                .then(newAccessToken => {
-                                    SInfo.setItem("accessToken", newAccessToken);
-                                    RNRestart.Restart();
-                                })
-                                .catch(err2 => {
-                                    console.log("err getting new access token");
-                                    console.log(err2);
-                                });
-                        });
-                    });
-            } else {
-                this.setState({
-                    hasInitialized: true
-                });
-                console.log("no access token");
-            }
+
+        this.setState({
+            hasInitialized: true
         });
+
+
+        // SInfo.getItem("accessToken", {}).then(accessToken => {
+        //     if (accessToken) {
+        //         auth0.auth
+        //             .userInfo({ token: accessToken })
+        //             .then(data => {
+        //                 this.gotoAccount(data);
+        //             })
+        //             .catch(err => {
+        //                 211
+        //                 SInfo.getItem("refreshToken", {}).then(refreshToken => {
+        //                     auth0.auth
+        //                         .refreshToken({ refreshToken: refreshToken })
+        //                         .then(newAccessToken => {
+        //                             SInfo.setItem("accessToken", newAccessToken);
+        //                             RNRestart.Restart();
+        //                         })
+        //                         .catch(err2 => {
+        //                             console.log("err getting new access token");
+        //                             console.log(err2);
+        //                         });
+        //                 });
+        //             });
+        //     } else {
+        //         this.setState({
+        //             hasInitialized: true
+        //         });
+        //         console.log("no access token");
+        //     }
+        // });
     }
 
 
 
     _login = () => {
-        // this.props.navigation.navigate('MainFeed')
+        this.props.navigation.navigate('MainScreen')
     }
 
     _newUser = () => {
@@ -73,6 +81,7 @@ export default class Login extends Component {
     }
 
     login = () => {
+        console.log('clicked login')
         auth0.webAuth
             .authorize({
                 scope: Config.AUTHO_SCOPE,
@@ -90,7 +99,6 @@ export default class Login extends Component {
                         console.log("err: ");
                         console.log(JSON.stringify(err));
                     });
-
                 SInfo.setItem("accessToken", res.accessToken, {});
                 SInfo.setItem("refreshToken", res.refreshToken, {});
             })
@@ -107,13 +115,12 @@ export default class Login extends Component {
                 Alert.alert(
                     'Logged out!'
                 );
-                this.setState({ accessToken: null });
+                this.setState({ accessToken: null, loggedIn: false });
             })
             .catch(error => {
                 console.log(error);
             });
     }
-
 
     render() {
         return (
@@ -124,54 +131,64 @@ export default class Login extends Component {
                     flexDirection: 'column',
                     flex: 1
                 }}>
-
-
-                {this.state.hasInitialized && (
-                    <Button onPress={this.login} title="Login" />
-                )}
-
-                {this.state.loggedIn ? 
-                <Button onPress={this.logout} title="Logout" /> : null }
-
-
-
-                {/* <LinearGradient style={{ width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center' }} colors={['#4c669f', '#3b5998', '#192f6a']}>
+                {/* {this.state.loggedIn ?
+                    <Button onPress={this.logout} title="Logout" /> : null} */}
+                <LinearGradient style={styles.linearGradient}
+                    colors={
+                        ['#4c669f', '#3b5998', '#192f6a']
+                    }>
                     <View
-                        style={{ width: '80%', height: '40%' }}
+                        style={{ width: '100%', height: '100%' }}
                     >
-                        <TextInput
-                            placeholder={'username'}
-                            style={{ backgroundColor: 'white', borderRadius: 10, marginVertical: 10 }}
-                        />
-                        <TextInput
-                            placeholder={'password'}
-                            style={{ backgroundColor: 'white', borderRadius: 10, marginVertical: 10 }}
-                        />
-                        <View style={{ alignItems: 'flex-end' }}>
-                            <TouchableOpacity
-                                onPress={() => { this._login() }}
+                        <Text style={styles.title_Text}> The War-Pit </Text>
+                        {this.state.hasInitialized && (
+                            <View style={styles.bottomSubContainer}>
+                                <TouchableOpacity
+                                    onPress={() => { this.login() }}
 
-                            >
-                                <Text style={{ color: 'white', borderColor: 'gray', borderWidth: 1, borderRadius: 5, textAlign: 'center' }}> Login  </Text>
-                            </TouchableOpacity>
-                        </View>
+                                >
+                                    <View style={{ borderRadius: 5, backgroundColor: 'yellow' }}>
+                                        <Text style={styles.loginButton_Text}> Login with Auth0  </Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
+                        )}
                     </View>
-
-                    <TouchableOpacity
-                        onPress={() => { this._newUser() }}
-
-                    >
-                        <Text style={{ color: 'white' }}> New User? </Text> */}
-                {/* <GoogleSigninButton
-                            style={{ width: 192, height: 48 }}
-                            size={GoogleSigninButton.Size.Wide}
-                            color={GoogleSigninButton.Color.Dark}
-                            onPress={this._signIn}
-                            disabled={this.state.isSigninInProgress} /> */}
-                {/* </TouchableOpacity>
-                </LinearGradient> */}
+                </LinearGradient>
             </View>
 
         )
     }
 }
+
+
+const styles = StyleSheet.create({
+    linearGradient: {
+        width: '100%',
+        height: '100%',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    title_Text: {
+        color: 'white',
+        textAlign: 'center',
+        fontSize: 40,
+        marginVertical: '15%'
+    },
+    bottomSubContainer: {
+        borderRadius: 5,
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flex: 1
+    },
+    loginButton_Text: {
+        color: 'black',
+        borderColor: 'gray',
+        borderWidth: 1,
+        textAlign: 'center',
+        fontSize: 20,
+        textAlign: 'center',
+        borderRadius: 5
+    }
+})
