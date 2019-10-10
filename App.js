@@ -5,21 +5,8 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { Login, MainFeed, Camera, Profile, Register } from './src/screens';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Auth0LogoutButton } from './src/components/auth0Buttons';
 
-
-class CustomNavLogout extends React.Component {
-  render() {
-    return (
-      <View>
-        <TouchableOpacity>
-          <Text>
-            Logout
-        </Text>
-        </TouchableOpacity>
-      </View>
-    )
-  }
-}
 
 const Tabs = createBottomTabNavigator({
   Feed: MainFeed,
@@ -38,11 +25,11 @@ const RootStack = createStackNavigator(
     Register: Register,
     MainScreen: {
       screen: Tabs,
-      navigationOptions: () => ({
+      navigationOptions: ({navigation}) => ({
         title: `The War-Pit!`,
         headerBackTitle: null,
         headerLeft: null,
-        headerRight: <CustomNavLogout/>
+        headerRight: <Auth0LogoutButton navigation={navigation}/>
       }),
     },
     // navigationOptions: () => ({
