@@ -6,6 +6,8 @@ import Config from "react-native-config";
 import DeviceInfo from "react-native-device-info";
 import SInfo from "react-native-sensitive-info";
 import Auth from '../../Auth';
+import { login } from '../auth0Functions';
+import { Auth0LoginButton } from '../components/auth0Buttons';
 
 const auth0 = new Auth0({
     domain: Auth.AUTH0_DOMAIN,
@@ -14,9 +16,6 @@ const auth0 = new Auth0({
 
 
 export default class Login extends Component {
-    static navigationOptions = {
-        header: null,
-    };
 
     state = {
         hasInitialized: false,
@@ -25,7 +24,6 @@ export default class Login extends Component {
 
 
     componentDidMount() {
-
         this.setState({
             hasInitialized: true
         });
@@ -80,33 +78,33 @@ export default class Login extends Component {
         }, () => this._login())
     }
 
-    login = () => {
-        console.log('clicked login')
-        auth0.webAuth
-            .authorize({
-                scope: Config.AUTHO_SCOPE,
-                audience: Config.AUTH0_AUDIENCE,
-                device: DeviceInfo.getUniqueID(),
-                prompt: "login"
-            })
-            .then(res => {
-                auth0.auth
-                    .userInfo({ token: res.accessToken })
-                    .then(data => {
-                        this.gotoAccount(data);
-                    })
-                    .catch(err => {
-                        console.log("err: ");
-                        console.log(JSON.stringify(err));
-                    });
-                SInfo.setItem("accessToken", res.accessToken, {});
-                SInfo.setItem("refreshToken", res.refreshToken, {});
-            })
-            .catch(error => {
-                console.log("error occurrdzz");
-                console.log(error);
-            });
-    };
+    // login = () => {
+    //     console.log('clicked login')
+    //     auth0.webAuth
+    //         .authorize({
+    //             scope: Config.AUTHO_SCOPE,
+    //             audience: Config.AUTH0_AUDIENCE,
+    //             device: DeviceInfo.getUniqueID(),
+    //             prompt: "login"
+    //         })
+    //         .then(res => {
+    //             auth0.auth
+    //                 .userInfo({ token: res.accessToken })
+    //                 .then(data => {
+    //                     this.gotoAccount(data);
+    //                 })
+    //                 .catch(err => {
+    //                     console.log("err: ");
+    //                     console.log(JSON.stringify(err));
+    //                 });
+    //             SInfo.setItem("accessToken", res.accessToken, {});
+    //             SInfo.setItem("refreshToken", res.refreshToken, {});
+    //         })
+    //         .catch(error => {
+    //             console.log("error occurrdzz");
+    //             console.log(error);
+    //         });
+    // };
 
     logout = () => {
         auth0.webAuth
@@ -143,14 +141,7 @@ export default class Login extends Component {
                         <Text style={styles.title_Text}> The War-Pit </Text>
                         {this.state.hasInitialized && (
                             <View style={styles.bottomSubContainer}>
-                                <TouchableOpacity
-                                    onPress={() => { this.login() }}
-
-                                >
-                                    <View style={{ borderRadius: 5, backgroundColor: 'yellow' }}>
-                                        <Text style={styles.loginButton_Text}> Login with Auth0  </Text>
-                                    </View>
-                                </TouchableOpacity>
+                                <Auth0LoginButton navigation={this.props.navigation} />
                             </View>
                         )}
                     </View>
