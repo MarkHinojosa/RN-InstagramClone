@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+/*/import React, { Component } from 'react'
 import { Text, View, Image } from 'react-native'
 import { Login, MainFeed, Profile, Camera } from './screens'
 // import { SwitchNavigator, TabNavigator } from 'react-navigation'
@@ -55,3 +55,4 @@ export default createAppContainer(Tabs);
 
 
 // export default InstaClone;
+*/
