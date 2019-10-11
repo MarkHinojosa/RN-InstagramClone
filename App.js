@@ -21,7 +21,12 @@ const Tabs = createBottomTabNavigator({
 
 const RootStack = createStackNavigator(
   {
-    Login: Login,
+    Login: {
+      screen: Login,
+      navigationOptions: () => ({
+        header: null,
+      })
+    },
     Register: Register,
     MainScreen: {
       screen: Tabs,
