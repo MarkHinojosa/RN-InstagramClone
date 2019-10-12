@@ -1,7 +1,8 @@
-React-Native Instagram Clone
+##React-Native Instagram Clone
 
-node authorization tutorial:
-https://www.youtube.com/watch?v=2jqok-WgelI
+- React-Native
+- React-Navigation
+- Auth0
 
 
 # Start Server :
