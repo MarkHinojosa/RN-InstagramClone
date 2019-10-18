@@ -14,6 +14,7 @@ import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.BV.LinearGradient.LinearGradientPackage; // <--- This! Linear gradient
 import java.util.List;
+import com.wix.RNCameraKit.RNCameraKitPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -30,6 +31,7 @@ public class MainApplication extends Application implements ReactApplication {
       // Packages that cannot be autolinked yet can be added manually here, for example:
       // packages.add(new MyReactNativePackage());
       new LinearGradientPackage();
+      new RNCameraKitPackage();
       return packages;
     }
 
